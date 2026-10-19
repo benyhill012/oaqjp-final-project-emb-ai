@@ -1,4 +1,4 @@
-import request
+import requests
 
 
 def emotion_detector(text_to_analyze):
@@ -23,7 +23,7 @@ def emotion_detector(text_to_analyze):
     }
 
     # Post call to service endpoint
-    response = request.post(url, headers=headers, json=input_json)
+    response = requests.post(url, headers=headers, json=input_json)
     # Will check for text response only for 200 status-code
     if response.status_code == 200:
         response_emotion_prediction = response.text

@@ -8,7 +8,7 @@ from EmotionDetection.emotion_detection import emotion_detector
 app = Flask("Emotion Detection")
 
 @app.route("/emotionDetector")
-def emotion_detector():
+def emotion_detect():
     response_string = ""
     # Retrieve parameter from request object
     text_to_analyze = request.args.get('textToAnalyze')
@@ -17,11 +17,11 @@ def emotion_detector():
     response = emotion_detector(text_to_analyze)
     if len(response) != 0:
         response_string = "For the given statement, the system response is"
-        for key, val in response:
+        for key, val in response.items():
             if key != "dominant_emotion":
-                response_string.join(f" '{key}': {val}")
+                response_string += f" '{key}': {val}"
             else:
-                response_string.join(f" The dominant emotion is {val}.")
+                response_string += f" The dominant emotion is {val}."
     else:
         response_string = "Failed to retrieve an Emotion Detection response"
 

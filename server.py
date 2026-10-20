@@ -7,6 +7,7 @@ from EmotionDetection.emotion_detection import emotion_detector
 # Initiate flask app
 app = Flask("Emotion Detection")
 
+
 @app.route("/emotionDetector")
 def emotion_detect():
     response_string = ""
@@ -19,13 +20,14 @@ def emotion_detect():
         response_string = "For the given statement, the system response is"
         for key, val in response.items():
             if key != "dominant_emotion":
-                response_string += f" '{key}': {val}"
-            else:
-                response_string += f" The dominant emotion is {val}."
+                response_string += f", '{key}': {val}"
+
+        response_string += f". The dominant emotion is {response.get('dominant_emotion')}."
     else:
         response_string = "Failed to retrieve an Emotion Detection response"
 
     return response_string
+
 
 @app.route("/")
 def render_index_page():

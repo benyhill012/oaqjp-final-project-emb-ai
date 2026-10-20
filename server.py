@@ -10,6 +10,10 @@ app = Flask("Emotion Detection")
 
 @app.route("/emotionDetector")
 def emotion_detect():
+    """
+    This function processes the '/emotionDetector' route and
+    provides a formatted response to the user of the Predicted Emotion
+    """
     response_string = ""
     # Retrieve parameter from request object
     text_to_analyze = request.args.get('textToAnalyze')
@@ -33,11 +37,12 @@ def emotion_detect():
 
 @app.route("/")
 def render_index_page():
+    """
+    This function processes the '/' (index page) and renders a user-interface that accepts input
+    """
     return render_template('index.html')
 
 
 if __name__ == "__main__":
-    ''' 
-    Deploy app on localhost:5000
-    '''
+    # This function is responsible for initializing the Flask server on port 5000
     app.run(host="localhost", port=5000)

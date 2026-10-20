@@ -1,10 +1,20 @@
-theia@theiadocker-dainnx1:/home/project/final_project/oaqjp-final-project-emb-ai$ python3.11 server.py
- * Serving Flask app 'Emotion Detection'
- * Debug mode: off
-WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:5000
- * Running on http://172.17.12.148:5000
-Press CTRL+C to quit
-127.0.0.1 - - [19/Oct/2026 18:28:27] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [19/Oct/2026 18:28:27] "GET /static/mywebscript.js HTTP/1.1" 200 -
+@app.route("/emotionDetector")
+def emotion_detect():
+    response_string = ""
+    # Retrieve parameter from request object
+    text_to_analyze = request.args.get('textToAnalyze')
+
+    # Retrieve the emotion prediction response
+    response = emotion_detector(text_to_analyze)
+    if len(response) != 0:
+        response_string = "For the given statement, the system response is"
+        for key, val in response.items():
+            if key != "dominant_emotion":
+                response_string += f", '{key}': {val}"
+
+        response_string += f". The dominant emotion is {response.get('dominant_emotion')}."
+
+    else:
+        response_string = "Failed to retrieve an Emotion Detection response"
+
+    return response_string
